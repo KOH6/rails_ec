@@ -6,6 +6,8 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require 'aws-sdk-s3'
+
 10.times do |n|
   count = n + 1
   product = Product.create!(
@@ -17,8 +19,9 @@
     description: "descriptionTest#{count}"
   )
   if Rails.env == 'production'
-    product.image.attach(key: 's3://hc-koh-rails-ec/images/450x300.jpg', filename: 'dummy.jpg')
-  else
-    product.image.attach(io: File.open(Rails.root.join('app/assets/images/450x300.jpg')), filename: 'dummy.jpg')
+    s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
+    obj = s3.bucket(ENV['AWS_BUCKET']).object('images/450x300.jpg')
+    obj.get(response_target: 'app/assets/images/450x300.jpg')
   end
+  product.image.attach(io: File.open(Rails.root.join('app/assets/images/450x300.jpg')), filename: 'dummy.jpg')
 end
