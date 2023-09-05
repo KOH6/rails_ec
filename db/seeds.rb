@@ -18,7 +18,6 @@ end
     sku: "testCode:#{count}",
     price: 1000 * count,
     stock: 5 * count,
-    star: count % 6,
     description: "descriptionTest#{count}"
   )
   product.image.attach(io: File.open(Rails.root.join('app/assets/images/450x300.jpg')), filename: 'dummy.jpg')
