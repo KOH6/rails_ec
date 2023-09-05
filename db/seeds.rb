@@ -13,7 +13,7 @@
     sku: "testCode:#{count}",
     price: 1000 * count,
     stock: 5 * count,
-    star: 3,
+    star: count % 6,
     description: "descriptionTest#{count}"
   )
 end
