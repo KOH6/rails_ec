@@ -2,8 +2,9 @@
 
 Rails.application.routes.draw do
   resources :products, only: %i[index show]
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
   root 'products#index'
+
+  # ルーティングが存在しないパスへアクセスしたとき、ルートへリダイレクトする。
+  # この際、'rails/active_storage'が含まれているパスはリダイレクト対象外にする
+  get '*path', to: redirect('/'), constraints: lambda { |req| req.path.exclude? 'rails/active_storage' }
 end
