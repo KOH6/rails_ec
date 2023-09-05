@@ -16,5 +16,8 @@
     star: count % 6,
     description: "descriptionTest#{count}"
   )
-  product.image.attach(io: File.open(Rails.root.join('app/assets/images/450x300.jpg')), filename: 'dummy.jpg')
+  PRODUCTION_PATH = 'https://hc-koh-rails-ec.s3.ap-northeast-1.amazonaws.com/images/450x300.jpg'
+  DEVELOPMENT_PATH = 'app/assets/images/450x300.jpg'
+  path = Rails.env == 'production' ? PRODUCTION_PATH : DEVELOPMENT_PATH
+  product.image.attach(io: File.open(Rails.root.join(path)), filename: 'dummy.jpg')
 end
