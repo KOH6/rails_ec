@@ -20,7 +20,7 @@ end
     sku: "testCode:#{count}",
     price: 1000 * count,
     stock: 5 * count,
-    description: "descriptionTest#{count}詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト詳細テスト"
+    description: "descriptionTest#{count}ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明"
   )
   product.image.attach(io: File.open(Rails.root.join(image_path)), filename: 'dummy.jpg')
 end

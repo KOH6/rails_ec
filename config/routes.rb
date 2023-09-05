@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   # ルーティングが存在しないパスへアクセスしたとき、ルートへリダイレクトする。
   # この際、'rails/active_storage'が含まれているパスはリダイレクト対象外にする
-  get '*path', to: redirect('/'), constraints: lambda { |req| req.path.exclude? 'rails/active_storage' }
+  get '*path', to: redirect('/'), constraints: ->(req) { req.path.exclude? 'rails/active_storage' }
 end
