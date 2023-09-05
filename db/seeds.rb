@@ -9,7 +9,7 @@ image_path = 'app/assets/images/dummy.jpg'
 
 if Rails.env.production?
   s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
-  obj = s3.bucket(ENV['AWS_BUCKET']).object('images/450x300.jpg')
+  obj = s3.bucket(ENV['AWS_BUCKET']).object('images/dummy.jpg')
   obj.get(response_target: image_path)
 end
 
