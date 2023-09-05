@@ -8,7 +8,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 10.times do |n|
   count = n + 1
-  Product.create!(
+  product = Product.create!(
     name: "商品#{count}",
     sku: "testCode:#{count}",
     price: 1000 * count,
@@ -16,4 +16,5 @@
     star: count % 6,
     description: "descriptionTest#{count}"
   )
+  product.image.attach(io: File.open(Rails.root.join('app/assets/images/450x300.jpg')), filename: 'dummy.jpg')
 end
