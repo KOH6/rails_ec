@@ -12,6 +12,7 @@
     sku: "testCode:#{n}",
     price: 100 * n,
     stock: 5 * n,
+    star: 3,
     description: "descriptionTest#{n}"
   )
 end

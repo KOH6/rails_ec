@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_044810) do
     t.string "sku", null: false
     t.integer "price", null: false
     t.integer "stock", null: false
+    t.integer "star", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
