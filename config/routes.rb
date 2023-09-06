@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :products, only: %i[index show]
+  root 'products#index'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # ルーティングが存在しないパスへアクセスしたとき、ルートへリダイレクトする。
+  # この際、'rails/active_storage'が含まれているパスはリダイレクト対象外にする
+  get '*path', to: redirect('/'), constraints: ->(req) { req.path.exclude? 'rails/active_storage' }
 end
