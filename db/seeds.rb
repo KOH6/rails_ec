@@ -7,11 +7,11 @@ require 'aws-sdk-s3'
 # 本番環境の場合S3にテストデータ用画像が保存されているため、Herokuのローカルへ再保存する。
 image_path = 'app/assets/images/dummy.jpg'
 
-if Rails.env.production?
-  s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
-  obj = s3.bucket(ENV['AWS_BUCKET']).object('images/dummy.jpg')
-  obj.get(response_target: image_path)
-end
+# if Rails.env.production?
+#   s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
+#   obj = s3.bucket(ENV['AWS_BUCKET']).object('images/dummy.jpg')
+#   obj.get(response_target: image_path)
+# end
 
 10.times do |n|
   count = n + 1
