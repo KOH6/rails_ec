@@ -10,6 +10,5 @@ class Product < ApplicationRecord
     validates :sku
     validates :price
     validates :stock
-    validates :image
   end
 end
