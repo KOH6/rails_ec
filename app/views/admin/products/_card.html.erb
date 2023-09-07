@@ -7,7 +7,7 @@
       <div class="text-center">
         <!-- Product name-->
         <h5 class="fw-bolder">
-          <%= product.name %>
+          <%= link_to product.name, admin_product_path(product), class: "link-dark" %>
         </h5>
         <!-- Product price-->
         <%= convert_to_jpy(product.price) %>

@@ -1,9 +1,11 @@
 class Admin::ProductsController < ApplicationController
-  before_action :set_product, only: %i[update destroy]
+  before_action :set_product, only: %i[show update destroy]
 
   def index
     @products = Product.kept
   end
+
+  def show; end
 
   def edit
     @product = Product.kept.find(params[:id])
