@@ -2,7 +2,7 @@ class Admin::ProductsController < ApplicationController
   before_action :set_product, only: %i[show update destroy]
 
   def index
-    @products = Product.kept
+    @products = Product.kept.order(updated_at: :desc)
   end
 
   def show; end
@@ -18,7 +18,7 @@ class Admin::ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to edit_admin_product_path(@product)
+      redirect_to admin_product_path(@product)
     else
       render :new
     end
@@ -27,7 +27,7 @@ class Admin::ProductsController < ApplicationController
   def update
     # TODO:論理削除対応
     if @product.update(product_params)
-      redirect_to admin_products_path
+      redirect_to admin_product_path(@product)
     else
       render :edit
     end

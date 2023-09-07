@@ -2,7 +2,7 @@
 
 class ProductsController < ApplicationController
   def index
-    @products = Product.kept
+    @products = Product.kept.order(updated_at: :desc)
   end
 
   def show
