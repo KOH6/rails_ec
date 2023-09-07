@@ -29,14 +29,14 @@ module Admin
     end
 
     def update
-      updated_product = Product.new(product_params)
+      @updated_product = Product.new(product_params)
       # 画像が選択されている場合はその画像を使用。未選択の場合、元の画像を複製して添付する
-      product_params['image'] || updated_product.image.attach(@product.image.blob)
+      product_params['image'] || @updated_product.image.attach(@product.image.blob)
 
       # 履歴を保存するため、旧レコードをdiscardし更新後の情報を新レコードとして保存する
-      if updated_product.save
+      if @updated_product.save
         @product.discard
-        redirect_to admin_product_path(updated_product)
+        redirect_to admin_product_path(@updated_product)
       else
         render :edit
       end

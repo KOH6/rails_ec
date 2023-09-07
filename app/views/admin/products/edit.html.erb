@@ -9,7 +9,9 @@
     <!-- Navigation-->
     <%= render 'navigation' %>
     <!-- ErrorMessages-->
-    <%= render 'shared/error_messages', :resource => @product %>
+    <% if @updated_product %>
+      <%= render 'shared/error_messages', :resource => @updated_product %>
+    <% end %>
     <!-- Header-->
     <header class="py-4 text-center">
       <h1 class="display-6 fw-bolder">商品編集</h1>
