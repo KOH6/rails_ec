@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    attributes:
+      product:
+        name: 名前
+        sku: 商品コード（SKU）
+        description: 商品説明
+        price: 価格（円）
+        stock: 在庫数
+        image: 商品画像
