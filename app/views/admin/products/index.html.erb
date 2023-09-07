@@ -18,8 +18,12 @@
     <%= render 'navigation' %>
     <!-- Flash-->
     <%= render 'shared/flash' %>
+    <!-- Header-->
+    <header class="py-4 text-center">
+      <h1 class="display-6 fw-bolder">商品一覧</h1>
+    </header>
     <!-- Section-->
-    <section class="py-5">
+    <section>
       <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
           <% @products.each do |product| %>

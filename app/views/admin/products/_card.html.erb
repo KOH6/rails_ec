@@ -16,8 +16,8 @@
     <!-- Product actions-->
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
       <div class="text-center">
-        <%= link_to "編集", edit_admin_product_path(product.id), class: "btn btn-secondary mt-auto" %>
-        <%= link_to "削除", admin_product_path(product.id), data: { turbo_method: :delete, turbo_confirm: "#{product.name}を削除してよろしいですか？"  }, class: "btn btn-danger mt-auto" %>
+        <%= link_to "編集", edit_admin_product_path(product), class: "btn btn-secondary mt-auto" %>
+        <%= link_to "削除", admin_product_path(product), data: { turbo_method: :delete, turbo_confirm: "#{product.name}を削除してよろしいですか？"  }, class: "btn btn-danger mt-auto" %>
       </div>
     </div>
   </div>
