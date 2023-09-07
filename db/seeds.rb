@@ -7,7 +7,7 @@ Product.destroy_all
 
 10.times do |n|
   count = n + 1
-  product = Product.create!(
+  product = Product.new(
     name: "商品#{count}",
     sku: "testCode:#{count}",
     price: 1000 * count,
@@ -15,4 +15,5 @@ Product.destroy_all
     description: "descriptionTest#{count}ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明ダミー説明"
   )
   product.image.attach(io: File.open(Rails.root.join('app/assets/images/dummy.jpg')), filename: 'dummy.jpg')
+  product.save
 end

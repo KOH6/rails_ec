@@ -8,6 +8,10 @@
   <body>
     <!-- Navigation-->
     <%= render 'navigation' %>
+    <!-- Display alert if product is discarded-->
+    <% if @product.discarded? %>
+      <p class="text-center alert alert-danger">削除済みの商品のため編集できません</p>
+    <% end %>
     <!-- Product section-->
     <section class="py-5">
       <div class="container px-4 px-lg-5 my-5">
@@ -22,7 +26,9 @@
             <p class="lead"><%= @product.description %></p>
             <div class="fs-5">在庫数<%= @product.stock %></div>
             <%= link_to "一覧へ戻る", admin_products_path, class: "btn btn-secondary mt-auto" %>
-            <%= link_to "編集", edit_admin_product_path(@product), class: "btn btn-primary mt-auto" %>
+            <% if @product.undiscarded? %>
+              <%= link_to "編集", edit_admin_product_path(@product), class: "btn btn-primary mt-auto" %>
+            <% end %>
           </div>
         </div>
       </div>
