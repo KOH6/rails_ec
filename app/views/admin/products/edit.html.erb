@@ -13,7 +13,7 @@
       <h1 class="display-6 fw-bolder">商品編集</h1>
     </header>
     <!-- form-->
-    <%= render 'form', :product => @product %>
+    <%= render 'form', :product => @product, :url => admin_product_path(@product) %>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
       <div class="container">

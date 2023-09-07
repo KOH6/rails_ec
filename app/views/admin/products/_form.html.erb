@@ -1,5 +1,5 @@
 <div class="container px-4 px-lg-5">
-  <%= form_with model: product, url: admin_product_path(product), local: true, data: { turbo: false }  do |f| %>
+  <%= form_with model: product, url: url, data: { turbo: false }  do |f| %>
     <div class="form-group my-3">
       <%= f.label :name, class: "mb-2 block text-sm text-gray-600" %>
       <%= f.text_field :name, class: "form-control" %>

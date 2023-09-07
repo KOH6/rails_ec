@@ -10,6 +10,16 @@ class Admin::ProductsController < ApplicationController
   end
 
   def new
+    @product = Product.new
+  end
+
+  def create
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to edit_admin_product_path(@product)
+    else
+      render :new
+    end
   end
 
   def update
