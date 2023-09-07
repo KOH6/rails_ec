@@ -59,6 +59,9 @@ gem 'discard'
 # 日本語訳用
 gem 'rails-i18n'
 
+# ローカルでの環境変数設定用
+gem 'dotenv-rails'
+
 group :production do
   # AWSのS3用
   gem 'aws-sdk-s3', require: false
