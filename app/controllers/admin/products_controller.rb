@@ -1,66 +1,70 @@
-class Admin::ProductsController < ApplicationController
-  before_action :basic_auth
-  before_action :set_product, only: %i[show update destroy]
+# frozen_string_literal: true
 
-  def index
-    @products = Product.kept.order(updated_at: :desc)
-  end
+module Admin
+  class ProductsController < ApplicationController
+    before_action :basic_auth
+    before_action :set_product, only: %i[show update destroy]
 
-  def show; end
-
-  def edit
-    @product = Product.kept.find(params[:id])
-  end
-
-  def new
-    @product = Product.new
-  end
-
-  def create
-    @product = Product.new(product_params)
-    if @product.save
-      redirect_to admin_product_path(@product)
-    else
-      render :new
+    def index
+      @products = Product.kept.order(updated_at: :desc)
     end
-  end
 
-  def update
-    updated_product = Product.new(product_params)
-    # 画像が選択されている場合はその画像を使用。未選択の場合、元の画像を複製して添付する
-    product_params["image"] || updated_product.image.attach(@product.image.blob)
+    def show; end
 
-    # 履歴を保存するため、旧レコードをdiscardし更新後の情報を新レコードとして保存する
-    if updated_product.save
-      @product.discard
-      redirect_to admin_product_path(updated_product)
-    else
-      render :edit
+    def edit
+      @product = Product.kept.find(params[:id])
     end
-  end
 
-  def destroy
-    if @product.discard
-      flash[:success] = "#{@product.name}の削除が完了しました"
-    else
-      flash[:danger] = "#{@product.name}の削除に失敗しました"
+    def new
+      @product = Product.new
     end
-    redirect_to admin_products_path
-  end
 
-  private
+    def create
+      @product = Product.new(product_params)
+      if @product.save
+        redirect_to admin_product_path(@product)
+      else
+        render :new
+      end
+    end
 
-  def set_product
-    @product = Product.find(params[:id])
-  end
+    def update
+      updated_product = Product.new(product_params)
+      # 画像が選択されている場合はその画像を使用。未選択の場合、元の画像を複製して添付する
+      product_params['image'] || updated_product.image.attach(@product.image.blob)
 
-  def product_params
-    params.require(:product).permit(%i[name sku description price stock image])
-  end
+      # 履歴を保存するため、旧レコードをdiscardし更新後の情報を新レコードとして保存する
+      if updated_product.save
+        @product.discard
+        redirect_to admin_product_path(updated_product)
+      else
+        render :edit
+      end
+    end
 
-  def basic_auth
-    authenticate_or_request_with_http_basic do |username, password|
-      username == ENV["BASIC_AUTH_USER"] && password == ENV["BASIC_AUTH_PASSWORD"]
+    def destroy
+      if @product.discard
+        flash[:success] = "#{@product.name}の削除が完了しました"
+      else
+        flash[:danger] = "#{@product.name}の削除に失敗しました"
+      end
+      redirect_to admin_products_path
+    end
+
+    private
+
+    def set_product
+      @product = Product.find(params[:id])
+    end
+
+    def product_params
+      params.require(:product).permit(%i[name sku description price stock image])
+    end
+
+    def basic_auth
+      authenticate_or_request_with_http_basic do |username, password|
+        username == ENV['BASIC_AUTH_USER'] && password == ENV['BASIC_AUTH_PASSWORD']
+      end
     end
   end
 end
