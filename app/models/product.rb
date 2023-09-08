@@ -4,6 +4,8 @@ class Product < ApplicationRecord
   include Discard::Model
 
   has_one_attached :image
+  has_many :cart_products
+  has_many :carts, through: :cart_products
 
   with_options presence: true do
     validates :name
