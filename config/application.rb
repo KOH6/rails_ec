@@ -29,5 +29,8 @@ module Myapp
       g.factory_bot false
     end
     config.action_view.default_form_builder = 'ApplicationFormBuilder'
+
+    # デフォルトロケールを日本語に設定
+    config.i18n.default_locale = :ja
   end
 end

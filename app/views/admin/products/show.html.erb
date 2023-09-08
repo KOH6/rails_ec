@@ -8,6 +8,10 @@
   <body>
     <!-- Navigation-->
     <%= render 'navigation' %>
+    <!-- Display alert if product is discarded-->
+    <% if @product.discarded? %>
+      <p class="text-center alert alert-danger">削除済みの商品のため編集できません</p>
+    <% end %>
     <!-- Product section-->
     <section class="py-5">
       <div class="container px-4 px-lg-5 my-5">
@@ -20,25 +24,12 @@
               <span><%= convert_to_jpy(@product.price) %></span>
             </div>
             <p class="lead"><%= @product.description %></p>
-            <div class="d-flex">
-              <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-              <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                <i class="bi-cart-fill me-1"></i>
-                カートに入れる
-              </button>
-            </div>
+            <div class="fs-5">在庫数<%= @product.stock %></div>
+            <%= link_to "一覧へ戻る", admin_products_path, class: "btn btn-secondary mt-auto" %>
+            <% if @product.undiscarded? %>
+              <%= link_to "編集", edit_admin_product_path(@product), class: "btn btn-primary mt-auto" %>
+            <% end %>
           </div>
-        </div>
-      </div>
-    </section>
-    <!-- Related items section-->
-    <section class="py-5 bg-light">
-      <div class="container px-4 px-lg-5 mt-5">
-        <h2 class="fw-bolder mb-4">一緒に購入されている商品</h2>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-          <% @recommended_products.each do |product| %>
-            <%= render 'card', :product => product %>
-          <% end %>
         </div>
       </div>
     </section>

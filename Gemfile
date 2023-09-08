@@ -53,11 +53,17 @@ gem 'bootsnap', require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem 'image_processing', '~> 1.2'
 
-# 論理削除用のgem
+# 論理削除用
 gem 'discard'
 
+# 日本語訳用
+gem 'rails-i18n'
+
+# ローカルでの環境変数設定用
+gem 'dotenv-rails'
+
 group :production do
-  # AWSのS3用gem
+  # AWSのS3用
   gem 'aws-sdk-s3', require: false
   gem 'fog-aws'
 end
