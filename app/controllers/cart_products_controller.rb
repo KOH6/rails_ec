@@ -3,6 +3,7 @@ class CartProductsController < ApplicationController
 
   def index
     @cart_products = Cart.find(@cart_id).cart_products.order(created_at: :desc)
+    @total = @cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
   end
 
   def create

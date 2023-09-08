@@ -29,7 +29,7 @@
               <small>DF97M2D</small>
             </div>
             <div>
-              <span class="text-success">−500円</span>
+              <span class="text-success">−0円</span>
               <%= link_to cart_products_path, data: {"turbo-method": :delete }, class: "btn btn-outline-danger" do %>
                 <i class="bi-trash"></i>
               <% end %>
@@ -37,7 +37,7 @@
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>お支払い金額</span>
-            <strong>2,000円</strong>
+            <strong><%= convert_to_jpy(@total) %></strong>
           </li>
         </ul>
 
