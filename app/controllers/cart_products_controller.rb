@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartProductsController < ApplicationController
   before_action :set_cart_id
 
@@ -9,12 +11,13 @@ class CartProductsController < ApplicationController
   def create
     product_id = params[:product_id]
     quantity = params[:quantity].to_i
-    cart_product = CartProduct.find_by(product_id: product_id, cart_id: @cart_id)
+    cart_product = CartProduct.find_by(product_id:, cart_id: @cart_id)
 
     if cart_product
-      cart_product.increment!(:quantity, quantity)
+      cart_product.increment(:quantity, quantity)
+      cart_product.save
     else
-      CartProduct.create(product_id: product_id, cart_id: @cart_id, quantity: quantity)
+      CartProduct.create(product_id:, cart_id: @cart_id, quantity:)
     end
     redirect_to request.referer
   end

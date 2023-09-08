@@ -3,6 +3,8 @@
 class ApplicationController < ActionController::Base
   before_action :set_cart_id, :set_cart_size
 
+  private
+
   def set_cart_id
     session[:cart_id] ||= Cart.create.id
   end
