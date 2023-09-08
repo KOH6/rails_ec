@@ -1,28 +1,18 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>KOH's Shop</title>
-  </head>
-  <body>
-    <!-- Navigation-->
-    <%= render 'navigation' %>
-    <!-- ErrorMessages-->
-    <% if @updated_product %>
-      <%= render 'shared/error_messages', :resource => @updated_product %>
-    <% end %>
-    <!-- Header-->
-    <header class="py-4 text-center">
-      <h1 class="display-6 fw-bolder">商品編集</h1>
-    </header>
-    <!-- form-->
-    <%= render 'form', :product => @product, :url => admin_product_path(@product) %>
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; KOH's Shop 2023</p>
-      </div>
-    </footer>
-  </body>
-</html>
+<!-- Navigation-->
+<%= render 'navigation' %>
+<!-- ErrorMessages-->
+<% if @updated_product %>
+  <%= render 'shared/error_messages', :resource => @updated_product %>
+<% end %>
+<!-- Header-->
+<header class="py-4 text-center">
+  <h1 class="display-6 fw-bolder">商品編集</h1>
+</header>
+<!-- form-->
+<%= render 'form', :product => @product, :url => admin_product_path(@product) %>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; KOH's Shop 2023</p>
+  </div>
+</footer>
