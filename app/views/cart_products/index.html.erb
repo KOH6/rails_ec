@@ -1,5 +1,5 @@
 <!-- Navigation-->
-<%= render 'shared/navigation' %>
+<%= render 'shared/navigation', :cart_size => @cart_size %>
 <!-- Cart section-->
 <div class="container px-4 px-lg-5 py-5 my-5">
   <main>
@@ -15,11 +15,11 @@
           <% @cart_products.each do |cart_product| %>
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0"><%= cart_product.product.name %></h6>
+                <h6 class="my-0"><%= cart_product.product_name %></h6>
                 <span class="text-body-secondary">数量：<%= cart_product.quantity %></span>
               </div>
               <div>
-                <span class="text-body-secondary"><%= convert_to_jpy(cart_product.product.price) %></span>
+                <span class="text-body-secondary"><%= convert_to_jpy(cart_product.product_price) %></span>
                 <%= link_to cart_product_path(cart_product), data: {"turbo-method": :delete }, class: "btn btn-outline-danger" do %>
                   <i class="bi-trash"></i>
                 <% end %>
