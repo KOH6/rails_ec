@@ -12,13 +12,19 @@
           <span><%= convert_to_jpy(@product.price) %></span>
         </div>
         <p class="lead"><%= @product.description %></p>
-        <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <%= link_to cart_products_path, class: "btn btn-outline-dark flex-shrink-0" do %>
-            <i class="bi-cart-fill me-1"></i>
-            カートに入れる
+          <%= form_with url: cart_products_path(product_id: @product.id), method: :post, data: { turbo: false }  do |f| %>
+            <div class="row">
+                <div class="col-auto my-3">
+                  <%= f.select :quantity, [*1..@product.stock], {}, class: "form-control text-center" %>
+                </div>
+                <div class="col-auto my-3">
+                  <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    カートに入れる
+                  </button>
+                </div>
+            </div>
           <% end %>
-        </div>
       </div>
     </div>
   </div>

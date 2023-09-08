@@ -7,10 +7,11 @@ class CartProductsController < ApplicationController
 
   def create
     product_id = params[:product_id]
+    quantity = params[:quantity].to_i
     cart_product = CartProduct.find_by(product_id: product_id, cart_id: @cart_id)
 
     if cart_product
-      cart_product.increment!(:quantity, 1)
+      cart_product.increment!(:quantity, quantity)
     else
       CartProduct.create(product_id: product_id, cart_id: @cart_id)
     end
