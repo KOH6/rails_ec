@@ -15,7 +15,12 @@
                 <h6 class="my-0"><%= cart_product.product.name %></h6>
                 <span class="text-body-secondary">数量：<%= cart_product.quantity %></span>
               </div>
-              <span class="text-body-secondary"><%= convert_to_jpy(cart_product.product.price) %></span>
+              <div>
+                <span class="text-body-secondary"><%= convert_to_jpy(cart_product.product.price) %></span>
+                <%= link_to cart_product_path(cart_product), data: {"turbo-method": :delete }, class: "btn btn-outline-danger" do %>
+                  <i class="bi-trash"></i>
+                <% end %>
+              </div>
             </li>
           <% end %>
           <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
@@ -23,7 +28,12 @@
               <h6 class="my-0">プロモコード</h6>
               <small>DF97M2D</small>
             </div>
-            <span class="text-success">−500円</span>
+            <div>
+              <span class="text-success">−500円</span>
+              <%= link_to cart_products_path, data: {"turbo-method": :delete }, class: "btn btn-outline-danger" do %>
+                <i class="bi-trash"></i>
+              <% end %>
+            </div>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>お支払い金額</span>

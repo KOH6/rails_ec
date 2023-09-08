@@ -13,13 +13,14 @@ class CartProductsController < ApplicationController
     if cart_product
       cart_product.increment!(:quantity, quantity)
     else
-      CartProduct.create(product_id: product_id, cart_id: @cart_id)
+      CartProduct.create(product_id: product_id, cart_id: @cart_id, quantity: quantity)
     end
     redirect_to request.referer
   end
 
-  def update
-
+  def destroy
+    CartProduct.find(params[:id]).destroy
+    redirect_to request.referer
   end
 
   private
