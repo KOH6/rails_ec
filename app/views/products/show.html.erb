@@ -14,7 +14,7 @@
         <p class="lead"><%= @product.description %></p>
         <div class="d-flex">
           <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <%= link_to cart_path(session[:cart_id]), class: "btn btn-outline-dark flex-shrink-0" do %>
+          <%= link_to cart_products_path, class: "btn btn-outline-dark flex-shrink-0" do %>
             <i class="bi-cart-fill me-1"></i>
             カートに入れる
           <% end %>
