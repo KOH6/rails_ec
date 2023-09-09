@@ -35,7 +35,7 @@
     <h2 class="fw-bolder mb-4">一緒に購入されている商品</h2>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
       <% @recommended_products.each do |product| %>
-        <%= render 'card', :product => product %>
+        <%= render product %>
       <% end %>
     </div>
   </div>
