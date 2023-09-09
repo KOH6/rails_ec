@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :set_cart_id, :set_cart_size
+  before_action :set_session_cart_id, :set_cart_size
 
   private
 
-  def set_cart_id
+  def set_session_cart_id
     session[:cart_id] ||= Cart.create.id
   end
 
