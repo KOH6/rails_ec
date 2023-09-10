@@ -6,15 +6,16 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
-  # Orderレコード作成時に、カートの削除、購入明細の作成を行う
   def create
     # TODO:在庫照合バリデーション
     @order = Order.new(order_params)
     if @order.save
-      flash[:success] = "購入ありがとうございます"
+      # Orderレコード作成時に、カートの削除、購入明細の作成、セッションの削除を行う
       create_order_products(cart_products: @cart_products, order_id: @order.id)
-      destroy_cart(cart_id: @cart_id)
+      Cart.find(@cart_id).destroy
       session[:cart_id] = nil
+
+      flash[:success] = "購入ありがとうございます"
       redirect_to products_path
     else
       render :index
@@ -42,9 +43,5 @@ class OrdersController < ApplicationController
       quantity = cart_product.quantity
       OrderProduct.create(order_id:, product_id:, quantity:)
     end
-  end
-
-  def destroy_cart(cart_id:)
-    Cart.find(cart_id).destroy
   end
 end

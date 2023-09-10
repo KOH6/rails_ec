@@ -12,6 +12,7 @@
           <span><%= convert_to_jpy(@product.price) %></span>
         </div>
         <p class="lead"><%= @product.description %></p>
+        <div class="fs-5">在庫数<%= @product.stock %></div>
         <%= form_with url: cart_products_path(product_id: @product.id), method: :post, data: { turbo: false }  do |f| %>
           <div class="row">
             <div class="col-auto my-3">
