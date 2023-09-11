@@ -1,5 +1,7 @@
 <!-- Navigation-->
 <%= render 'shared/navigation', :cart_size => @cart_size %>
+<!-- Flash-->
+<%= render 'shared/flash' %>
 <!-- ErrorMessages-->
 <% if @order %>
   <%= render 'shared/error_messages', :resource => @order %>
