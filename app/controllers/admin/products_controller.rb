@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class ProductsController < ApplicationController
-    before_action :basic_auth
+  class ProductsController < Admin::ApplicationController
     before_action :set_product, only: %i[show update destroy]
 
     def index

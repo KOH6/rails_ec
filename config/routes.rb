@@ -2,8 +2,7 @@
 
 Rails.application.routes.draw do
   namespace :admin do
-    resources :orders, only: %i[index]
-    resources :order_products, only: %i[index show]
+    resources :orders, only: %i[index show]
     resources :products, only: %i[index show new create edit update destroy]
   end
   resources :products, only: %i[index show]

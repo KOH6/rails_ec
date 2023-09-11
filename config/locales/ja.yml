@@ -22,3 +22,6 @@ ja:
         credit_number: カード番号
         credit_expiration: 有効期限
         credit_cvv: CVV
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"

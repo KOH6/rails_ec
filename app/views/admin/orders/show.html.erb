@@ -1,0 +1,54 @@
+<!-- Navigation-->
+<%= render 'admin/shared/navigation' %>
+<!-- Header-->
+<header class="text-center py-5 my-5">
+  <h1 class="display-6 fw-bolder">購入明細詳細</h1>
+</header>
+<!-- Cart section-->
+<div class="container px-4 px-lg-5 mb-5">
+    <div class="row gx-4 gx-lg-5 align-items-center">
+        <h1 class="display-5 fw-bolder"><%= "#{@order.last_name} #{@order.first_name}様" %></h1>
+        <p class="lead">メールアドレス：<%= @order.email %></p>
+        <p class="lead">お届け先：<%= "#{@order.address1} #{@order.address2}" %></p>
+        <h1 class="display-5 fw-bolder">クレジットカード情報</h1>
+        <p class="lead">名義：<%= @order.credit_name %></p>
+        <p class="lead">有効期限：<%= @order.credit_expiration %></p>
+    </div>
+  <div class="table-responsive">
+    <table class="table table-striped text-center">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">商品名</th>
+          <th scope="col" class="text-end">金額</th>
+          <th scope="col" class="text-end">数量</th>
+          <th scope="col" class="text-end">小計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order_products.each do |order_product| %>
+          <tr>
+            <th scope="row"><%= image_tag order_product.product.image, class: "img-fluid", width: '70' %></th>
+            <td><%= order_product.product.name %></td>
+            <td class="text-end"><%= convert_to_jpy(order_product.product.price) %></td>
+            <td class="text-end"><%= order_product.quantity %></td>
+            <td class="text-end"><%= convert_to_jpy(order_product.subtotal) %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <th></th>
+          <td></td>
+          <td></td>
+          <td><strong>合計金額</strong></td>
+          <td class="text-end"><%= convert_to_jpy(@total) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; KOH's Shop 2023</p>
+  </div>
+</footer>
