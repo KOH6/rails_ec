@@ -9,17 +9,18 @@ class OrdersController < ApplicationController
   def create
     # TODO:在庫照合バリデーション
     @order = Order.new(order_params)
-    if @order.save
+
+    ActiveRecord::Base.transaction do
       # Orderレコード作成時に、カートの削除、購入明細の作成、セッションの削除を行う
       create_order_products(cart_products: @cart_products, order_id: @order.id)
-      Cart.find(@cart_id).destroy
+      @order.save!
+      Cart.find(@cart_id).destroy!
       session[:cart_id] = nil
-
+    end
       flash[:success] = "購入ありがとうございます"
       redirect_to products_path
-    else
-      render :index
-    end
+    rescue
+      render :index, status: :unprocessable_entity
   end
 
   private
@@ -41,7 +42,18 @@ class OrdersController < ApplicationController
     cart_products.each do |cart_product|
       product_id = cart_product.product_id
       quantity = cart_product.quantity
-      OrderProduct.create(order_id:, product_id:, quantity:)
+      enough_stock?(product_id:, quantity:)
+      @order.order_products.build(product_id:, quantity:)
+    end
+  end
+
+  def enough_stock?(product_id:, quantity:)
+    p 'call enough_stock?'
+    product = Product.find(product_id)
+    if quantity > product.stock
+      p 'error'
+      @order.errors.add(:base, "#{product.name}が注文可能数を超えています。最大注文可能数：#{product.stock}個")
+      p errors
     end
   end
 end
