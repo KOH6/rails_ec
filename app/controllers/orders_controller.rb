@@ -10,14 +10,11 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-
-    if @cart_products.size.zero?
-      flash.now[:danger] = "カートに商品が入っていません。"
+    if @cart_products.empty?
+      flash.now[:danger] = 'カートに商品が入っていません。'
       render :index
       return
-    end
-
-    if out_of_stock?(cart_products: @cart_products)
+    elsif out_of_stock?(cart_products: @cart_products)
       render :index
       return
     end
@@ -33,7 +30,7 @@ class OrdersController < ApplicationController
     OrderMailer.complete(order: @order).deliver_later
     redirect_to products_path
   rescue StandardError
-    render :index, status: :unprocessable_entity
+    render :index
   end
 
   private
