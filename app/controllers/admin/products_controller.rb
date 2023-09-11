@@ -5,7 +5,7 @@ module Admin
     before_action :set_product, only: %i[show update destroy]
 
     def index
-      @products = Product.kept.order(updated_at: :desc)
+      @products = Product.kept.order(created_at: :desc)
     end
 
     def show; end
