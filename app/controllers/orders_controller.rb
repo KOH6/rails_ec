@@ -30,6 +30,7 @@ class OrdersController < ApplicationController
       session[:cart_id] = nil
     end
     flash[:success] = '購入ありがとうございます'
+    OrderMailer.complete(order: @order).deliver_later
     redirect_to products_path
   rescue StandardError
     render :index, status: :unprocessable_entity
