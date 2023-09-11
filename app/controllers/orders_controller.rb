@@ -11,7 +11,13 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
 
-    if short_of_stock?(cart_products: @cart_products)
+    if @cart_products.size.zero?
+      flash.now[:danger] = "カートに商品が入っていません。"
+      render :index
+      return
+    end
+
+    if out_of_stock?(cart_products: @cart_products)
       render :index
       return
     end
@@ -55,7 +61,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def short_of_stock?(cart_products:)
+  def out_of_stock?(cart_products:)
     cart_products.each do |cart_product|
       product = Product.find(cart_product.product_id)
       quantity = cart_product.quantity
