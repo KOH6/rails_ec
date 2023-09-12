@@ -97,6 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_130015) do
     t.bigint "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_promotion_codes_on_code", unique: true
     t.index ["order_id"], name: "index_promotion_codes_on_order_id"
   end
 
