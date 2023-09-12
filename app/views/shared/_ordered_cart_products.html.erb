@@ -19,6 +19,15 @@
           <td class="text-end"><%= convert_to_jpy(cart_product.subtotal) %></td>
         </tr>
       <% end %>
+      <% if promotion_code %>
+        <tr>
+          <th scope="row">プロモーションコード</th>
+          <td>コード：<%= promotion_code.code %></td>
+          <td class="text-end">-<%= convert_to_jpy(promotion_code.discount) %></td>
+          <td class="text-end">1</td>
+          <td class="text-end">-<%= convert_to_jpy(promotion_code.discount) %></td>
+        </tr>
+      <% end %>
       <tr>
         <th></th>
         <td></td>

@@ -9,7 +9,8 @@ module Admin
     def show
       @order = Order.find(params[:id])
       @ordered_cart_products = @order.cart.cart_products.order(created_at: :desc)
-      @total = @ordered_cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
+      @promotion_code = @order.cart.promotion_code
+      @total = @order.cart.calc_total
     end
   end
 end
