@@ -13,8 +13,8 @@ class OrdersController < ApplicationController
     @order[:cart_id] = @cart.id
 
     error_messages = @cart.set_validate_error_messages
-    if error_messages.size > 0
-      flash.now['danger'] = error_messages.join("<br/>")
+    if error_messages.size.positive?
+      flash.now['danger'] = error_messages.join('<br/>')
       render :index
       return
     end
