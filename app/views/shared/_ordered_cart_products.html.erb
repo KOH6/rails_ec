@@ -20,7 +20,7 @@
         </tr>
       <% end %>
       <% if promotion_code %>
-        <tr>
+        <tr class="text-success">
           <th scope="row">プロモーションコード</th>
           <td>コード：<%= promotion_code.code %></td>
           <td class="text-end">-<%= convert_to_jpy(promotion_code.discount) %></td>

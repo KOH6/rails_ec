@@ -23,6 +23,8 @@ class OrdersController < ApplicationController
     if @order.save
       session[:cart_id] = nil
       flash[:success] = '購入ありがとうございます。'
+      # Modelのselfはシリアライズされるためメール送信はコントローラに記載
+      OrderMailer.complete(order: @order).deliver_later
       redirect_to products_path
     else
       render :index

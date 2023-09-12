@@ -24,10 +24,15 @@ class Order < ApplicationRecord
   end
 
   after_create do
+    update_promotion_code
+  end
+
+  private
+
+  def update_promotion_code
     promotion_code = cart.promotion_code
     if promotion_code && promotion_code.order_id.nil?
       PromotionCode.update(promotion_code.id, order_id: id)
     end
-    OrderMailer.complete(order: self).deliver_later
   end
 end
