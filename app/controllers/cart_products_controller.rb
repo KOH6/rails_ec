@@ -26,10 +26,4 @@ class CartProductsController < ApplicationController
     CartProduct.find(params[:id]).destroy
     redirect_to request.referer
   end
-
-  private
-
-  def set_cart_id
-    @cart_id = session[:cart_id]
-  end
 end

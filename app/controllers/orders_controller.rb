@@ -35,10 +35,6 @@ class OrdersController < ApplicationController
 
   private
 
-  def set_cart_id
-    @cart_id = session[:cart_id]
-  end
-
   def order_params
     params.require(:order).permit(%i[last_name first_name user_name email country prefecture zip_code address1 address2
                                      credit_name credit_number credit_expiration credit_cvv])
