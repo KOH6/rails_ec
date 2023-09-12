@@ -18,4 +18,9 @@ class Order < ApplicationRecord
     validates :credit_expiration
     validates :credit_cvv
   end
+
+  before_create do
+    cart.decrease_product_stock
+    OrderMailer.complete(order: @order).deliver_later
+  end
 end

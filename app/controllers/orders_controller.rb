@@ -20,11 +20,8 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
-      # Orderレコード作成時に、カートとのリレーションの作成、商品の在庫数更新を行う
-      @cart.decrease_product_stock
       session[:cart_id] = nil
       flash[:success] = '購入ありがとうございます'
-      OrderMailer.complete(order: @order).deliver_later
       redirect_to products_path
     else
       render :index
