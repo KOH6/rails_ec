@@ -8,7 +8,7 @@ module Admin
 
     def show
       @order = Order.find(params[:id])
-      @order_products = Order.find(params[:id]).order_products.order(created_at: :desc)
+      @order_products = @order.order_products.order(created_at: :desc)
       @total = @order_products.inject(0) { |total, order_product| total + order_product.subtotal }
     end
   end

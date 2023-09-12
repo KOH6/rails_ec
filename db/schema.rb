@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_080044) do
   end
 
   create_table "order_products", force: :cascade do |t|
-    t.integer "quantity"
+    t.integer "quantity", null: false
     t.bigint "order_id", null: false
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
@@ -68,19 +68,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_080044) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "last_name"
-    t.string "first_name"
-    t.string "user_name"
-    t.string "email"
-    t.string "country"
-    t.string "prefecture"
-    t.string "zip_code"
-    t.string "address1"
-    t.string "address2"
-    t.string "credit_name"
-    t.string "credit_number"
-    t.string "credit_expiration"
-    t.string "credit_cvv"
+    t.string "last_name", null: false
+    t.string "first_name", null: false
+    t.string "user_name", null: false
+    t.string "email", null: false
+    t.string "country", null: false
+    t.string "prefecture", null: false
+    t.string "zip_code", null: false
+    t.string "address1", null: false
+    t.string "address2", null: false
+    t.string "credit_name", null: false
+    t.string "credit_number", null: false
+    t.string "credit_expiration", null: false
+    t.string "credit_cvv", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
