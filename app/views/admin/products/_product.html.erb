@@ -10,7 +10,13 @@
           <%= link_to product.name, admin_product_path(product), class: "link-dark" %>
         </h5>
         <!-- Product price-->
-        <%= convert_to_jpy(product.price) %>
+        <div>
+          <%= convert_to_jpy(product.price) %>
+        </div>
+        <!-- Product stock-->
+        <div>
+          在庫数<%= product.stock %>
+        </div>
       </div>
     </div>
     <!-- Product actions-->

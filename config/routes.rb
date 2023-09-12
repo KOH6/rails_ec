@@ -2,10 +2,12 @@
 
 Rails.application.routes.draw do
   namespace :admin do
+    resources :orders, only: %i[index show]
     resources :products, only: %i[index show new create edit update destroy]
   end
   resources :products, only: %i[index show]
-  resources :cart_products, only: %i[index create destroy]
+  resources :cart_products, only: %i[create destroy]
+  resources :orders, only: %i[index create]
   root 'products#index'
 
   # ルーティングが存在しないパスへアクセスしたとき、ルートへリダイレクトする。

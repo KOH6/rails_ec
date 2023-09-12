@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
   def set_cart_size
     @cart_size = Cart.find(session[:cart_id]).cart_products.size
   end
+
+  def set_cart
+    @cart = Cart.find(session[:cart_id])
+  end
 end
