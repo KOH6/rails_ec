@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     @cart_size = Cart.find(session[:cart_id]).cart_products.size
   end
 
-  def set_cart_id
-    @cart_id = session[:cart_id]
+  def set_cart
+    @cart = Cart.find(session[:cart_id])
   end
 end

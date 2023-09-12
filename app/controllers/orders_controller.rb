@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
-  before_action :set_cart_id
+  before_action :set_cart
   before_action :set_cart_products, only: %i[index create]
 
   def index
@@ -10,20 +10,18 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order[:cart_id] = @cart_id
+    @order[:cart_id] = @cart.id
 
-    if @cart_products.empty?
-      flash.now[:danger] = 'カートに商品が入っていません。'
-      render :index
-      return
-    elsif out_of_stock?(cart_products: @cart_products)
+    error_messages = @cart.set_validate_error_messages
+    if error_messages.size > 0
+      flash.now['danger'] = error_messages.join("<br/>")
       render :index
       return
     end
 
     if @order.save
       # Orderレコード作成時に、カートとのリレーションの作成、商品の在庫数更新を行う
-      decrease_product_stock(cart_products: @cart_products)
+      @cart.decrease_product_stock
       session[:cart_id] = nil
       flash[:success] = '購入ありがとうございます'
       OrderMailer.complete(order: @order).deliver_later
@@ -41,28 +39,7 @@ class OrdersController < ApplicationController
   end
 
   def set_cart_products
-    @cart_products = Cart.find(@cart_id).cart_products.order(created_at: :desc)
+    @cart_products = @cart.cart_products.order(created_at: :desc)
     @total = @cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
-  end
-
-  def decrease_product_stock(cart_products:)
-    cart_products.each do |cart_product|
-      product = Product.find(cart_product.product_id)
-      quantity = cart_product.quantity
-      Product.update(cart_product.product_id, stock: product.stock - quantity)
-    end
-  end
-
-  def out_of_stock?(cart_products:)
-    cart_products.each do |cart_product|
-      product = Product.find(cart_product.product_id)
-      quantity = cart_product.quantity
-      if quantity > product.stock
-        flash.now[:danger] ||= ''
-        flash.now[:danger] += "#{product.name}が注文可能数を超えています。最大注文可能数：#{product.stock}個<br/>"
-      end
-    end
-
-    flash.now[:danger]
   end
 end
