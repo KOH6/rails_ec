@@ -29,37 +29,11 @@ class OrdersController < ApplicationController
     end
   end
 
-  def register_promotion_code
-    if params[:code].empty?
-      redirect_to request.referer, flash: { danger: 'コードを入力してください' }
-      return
-    end
-
-    code = params[:code]
-    promotion_code = PromotionCode.find_by(code:, order_id: nil)
-
-    if promotion_code
-      Cart.update(@cart.id, promotion_code_id: promotion_code.id)
-      redirect_to request.referer
-    else
-      redirect_to request.referer, flash: { danger: '入力したコードが間違っているか、すでに使用済です。' }
-    end
-  end
-
-  def cancel_promotion_code
-    Cart.update(@cart.id, promotion_code_id: nil)
-    redirect_to request.referer, flash: { success: 'プロモーションコードを解除しました。' }
-  end
-
   private
 
   def order_params
     params.require(:order).permit(%i[last_name first_name user_name email country prefecture zip_code address1 address2
                                      credit_name credit_number credit_expiration credit_cvv])
-  end
-
-  def promotion_code_params
-    params.require(:promotion_code).permit(%i[code])
   end
 
   def set_promotion_code
