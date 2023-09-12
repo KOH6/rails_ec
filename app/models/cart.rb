@@ -8,7 +8,7 @@ class Cart < ApplicationRecord
   def set_validate_error_messages
     messages = []
     messages << 'カートに商品が入っていません。' if cart_products.empty?
-    messages << "プロモーションコードがすでに使用済です。" if promotion_code&.order_id.present?
+    messages << 'プロモーションコードがすでに使用済です。' if promotion_code&.order_id.present?
     set_out_of_stock_messages(messages:)
 
     messages
@@ -22,7 +22,7 @@ class Cart < ApplicationRecord
   end
 
   def calc_total
-    total = cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
+    total = cart_products.inject(0) { |result, cart_product| result + cart_product.subtotal }
     if promotion_code
       total -= promotion_code.discount
       total = 0 if total.negative?
@@ -39,5 +39,5 @@ class Cart < ApplicationRecord
         product = cart_product.product
         messages << "#{product.name}が注文可能数を超えています。最大注文可能数：#{product.stock}個"
       end
-    end
+  end
 end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class PromotionCodesController < ApplicationController
   before_action :set_cart
 
-  def register_promotion_code
+  def register
     if params[:code].empty?
       redirect_to request.referer, flash: { danger: 'コードを入力してください' }
       return
@@ -18,7 +20,7 @@ class PromotionCodesController < ApplicationController
     end
   end
 
-  def cancel_promotion_code
+  def cancel
     Cart.update(@cart.id, promotion_code_id: nil)
     redirect_to request.referer, flash: { success: 'プロモーションコードを解除しました。' }
   end

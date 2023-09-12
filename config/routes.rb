@@ -10,8 +10,8 @@ Rails.application.routes.draw do
   resources :orders, only: %i[index create]
   root 'products#index'
 
-  post 'register_promotion_code', to: 'promotion_codes#register_promotion_code'
-  post 'cancel_promotion_code', to: 'promotion_codes#cancel_promotion_code'
+  post 'register_promotion_code', to: 'promotion_codes#register'
+  post 'cancel_promotion_code', to: 'promotion_codes#cancel'
 
   # ルーティングが存在しないパスへアクセスしたとき、ルートへリダイレクトする。
   # この際、'rails/active_storage'が含まれているパスはリダイレクト対象外にする

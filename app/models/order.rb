@@ -31,8 +31,8 @@ class Order < ApplicationRecord
 
   def update_promotion_code
     promotion_code = cart.promotion_code
-    if promotion_code && promotion_code.order_id.nil?
-      PromotionCode.update(promotion_code.id, order_id: id)
-    end
+    return unless promotion_code && promotion_code.order_id.nil?
+
+    PromotionCode.update(promotion_code.id, order_id: id)
   end
 end

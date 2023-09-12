@@ -3,7 +3,7 @@
 class OrdersController < ApplicationController
   before_action :set_cart
   before_action :set_promotion_code, only: %i[index create]
-  before_action :set_cart_products, only: %i[index create register_promotion_code]
+  before_action :set_cart_products, only: %i[index create]
 
   def index
     @order = Order.new
