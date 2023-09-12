@@ -13,7 +13,7 @@
     <p class="lead">名義：<%= @order.credit_name %></p>
     <p class="lead">有効期限：<%= @order.credit_expiration %></p>
   </div>
-  <%= render 'shared/order_products', :order_products => @order_products, :total => @total %>
+  <%= render 'shared/ordered_cart_products', :ordered_cart_products => @ordered_cart_products, :total => @total %>
 </div>
 <!-- Footer-->
 <footer class="py-5 bg-dark">

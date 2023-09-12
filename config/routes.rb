@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show]
   resources :cart_products, only: %i[create destroy]
   resources :orders, only: %i[index create]
-  resources :order_products, only: %i[create]
   root 'products#index'
 
   # ルーティングが存在しないパスへアクセスしたとき、ルートへリダイレクトする。

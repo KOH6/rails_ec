@@ -8,8 +8,8 @@ module Admin
 
     def show
       @order = Order.find(params[:id])
-      @order_products = @order.order_products.order(created_at: :desc)
-      @total = @order_products.inject(0) { |total, order_product| total + order_product.subtotal }
+      @ordered_cart_products = @order.cart.cart_products.order(created_at: :desc)
+      @total = @ordered_cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
     end
   end
 end

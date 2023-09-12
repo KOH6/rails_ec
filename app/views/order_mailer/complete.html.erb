@@ -6,5 +6,5 @@
     <h1 class="display-5 fw-bolder"><%= "#{@order.last_name} #{@order.first_name}様" %></h1>
     <p>ご購入ありがとうございます。購入明細をお送りいたしますので、下記内容にてご確認ください。</p>
   </div>
-  <%= render 'shared/order_products', :order_products => @order_products, :total => @total %>
+  <%= render 'shared/ordered_cart_products', :ordered_cart_products => @ordered_cart_products, :total => @total %>
 </div>

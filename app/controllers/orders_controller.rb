@@ -10,6 +10,8 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @order[:cart_id] = @cart_id
+
     if @cart_products.empty?
       flash.now[:danger] = 'カートに商品が入っていません。'
       render :index
@@ -19,18 +21,14 @@ class OrdersController < ApplicationController
       return
     end
 
-    ActiveRecord::Base.transaction do
-      # Orderレコード作成時に、カートの削除、購入明細の作成、セッションの削除を行う
-      create_order_products(cart_products: @cart_products)
-      @order.save!
-      Cart.find(@cart_id).destroy!
+    if @order.save
       session[:cart_id] = nil
+      flash[:success] = '購入ありがとうございます'
+      OrderMailer.complete(order: @order).deliver_later
+      redirect_to products_path
+    else
+      render :index
     end
-    flash[:success] = '購入ありがとうございます'
-    OrderMailer.complete(order: @order).deliver_later
-    redirect_to products_path
-  rescue StandardError
-    render :index
   end
 
   private
@@ -43,16 +41,6 @@ class OrdersController < ApplicationController
   def set_cart_products
     @cart_products = Cart.find(@cart_id).cart_products.order(created_at: :desc)
     @total = @cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
-  end
-
-  def create_order_products(cart_products:)
-    cart_products.each do |cart_product|
-      product_id = cart_product.product_id
-      product = Product.find(cart_product.product_id)
-      quantity = cart_product.quantity
-      Product.update(product_id, stock: product.stock - quantity)
-      @order.order_products.build(product_id:, quantity:)
-    end
   end
 
   def out_of_stock?(cart_products:)

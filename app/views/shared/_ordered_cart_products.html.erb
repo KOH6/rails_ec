@@ -10,13 +10,13 @@
       </tr>
     </thead>
     <tbody>
-      <% order_products.each do |order_product| %>
+      <% ordered_cart_products.each do |cart_product| %>
         <tr>
-          <th scope="row"><%= image_tag order_product.product.image, class: "img-fluid", width: '70' %></th>
-          <td><%= order_product.product.name %></td>
-          <td class="text-end"><%= convert_to_jpy(order_product.product.price) %></td>
-          <td class="text-end"><%= order_product.quantity %></td>
-          <td class="text-end"><%= convert_to_jpy(order_product.subtotal) %></td>
+          <th scope="row"><%= image_tag cart_product.product.image, class: "img-fluid", width: '70' %></th>
+          <td><%= cart_product.product.name %></td>
+          <td class="text-end"><%= convert_to_jpy(cart_product.product.price) %></td>
+          <td class="text-end"><%= cart_product.quantity %></td>
+          <td class="text-end"><%= convert_to_jpy(cart_product.subtotal) %></td>
         </tr>
       <% end %>
       <tr>
