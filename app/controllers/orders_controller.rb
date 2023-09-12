@@ -22,6 +22,8 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
+      # Orderレコード作成時に、カートとのリレーションの作成、商品の在庫数更新を行う
+      decrease_product_stock(cart_products: @cart_products)
       session[:cart_id] = nil
       flash[:success] = '購入ありがとうございます'
       OrderMailer.complete(order: @order).deliver_later
@@ -41,6 +43,14 @@ class OrdersController < ApplicationController
   def set_cart_products
     @cart_products = Cart.find(@cart_id).cart_products.order(created_at: :desc)
     @total = @cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
+  end
+
+  def decrease_product_stock(cart_products:)
+    cart_products.each do |cart_product|
+      product = Product.find(cart_product.product_id)
+      quantity = cart_product.quantity
+      Product.update(cart_product.product_id, stock: product.stock - quantity)
+    end
   end
 
   def out_of_stock?(cart_products:)
