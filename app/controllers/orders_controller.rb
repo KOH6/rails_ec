@@ -42,10 +42,6 @@ class OrdersController < ApplicationController
 
   def set_cart_products
     @cart_products = @cart.cart_products.order(created_at: :desc)
-    @total = @cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
-    if @cart.promotion_code
-      @total -= @cart.promotion_code.discount
-      @total = 0 if @total.negative?
-    end
+    @total = @cart.calc_total
   end
 end

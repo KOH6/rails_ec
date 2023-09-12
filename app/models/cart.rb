@@ -21,6 +21,15 @@ class Cart < ApplicationRecord
     end
   end
 
+  def calc_total
+    total = cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
+    if promotion_code
+      total -= promotion_code.discount
+      total = 0 if total.negative?
+    end
+    total
+  end
+
   private
 
   def set_out_of_stock_messages(messages:)

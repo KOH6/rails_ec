@@ -23,7 +23,8 @@ class CartProductsController < ApplicationController
   end
 
   def destroy
-    CartProduct.find(params[:id]).destroy
-    redirect_to request.referer
+    cart_product = CartProduct.find(params[:id])
+    cart_product.destroy
+    redirect_to request.referer, flash: { success: "#{cart_product.product.name}を削除しました。" }
   end
 end
