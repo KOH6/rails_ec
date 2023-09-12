@@ -32,29 +32,31 @@
               </div>
             </li>
           <% end %>
-          <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
-            <div class="text-success">
-              <h6 class="my-0">プロモコード</h6>
-              <small>DF97M2D</small>
-            </div>
-            <div>
-              <span class="text-success">−0円</span>
-              <%= link_to orders_path, data: {"turbo-method": :delete }, class: "btn btn-outline-danger" do %>
-                <i class="bi-trash"></i>
-              <% end %>
-            </div>
-          </li>
+          <% if @promotion_code %>
+            <li class="list-group-item d-flex justify-content-between bg-body-tertiary">
+              <div class="text-success">
+                <h6 class="my-0">プロモコード</h6>
+                <small><%= @promotion_code.code %></small>
+              </div>
+              <div>
+                <span class="text-success">-<%= convert_to_jpy(@promotion_code.discount)%></span>
+                <%= link_to cancel_promotion_code_path, data: {"turbo-method": :post }, class: "btn btn-outline-danger" do %>
+                  <i class="bi-trash"></i>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
           <li class="list-group-item d-flex justify-content-between">
             <span>お支払い金額</span>
             <strong><%= convert_to_jpy(@total) %></strong>
           </li>
         </ul>
-        <form class="card p-2">
+        <%= form_with url: register_promotion_code_path, method: :post, data: { turbo: false }, class: "card p-2" do |f| %>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="プロモコードを入力">
-            <button class="btn btn-secondary">利用する</button>
+            <%= f.text_field :code, class: "form-control", placeholder: "プロモコードを入力" %>
+            <button class="btn btn-secondary" type="submit">利用する</button>
           </div>
-        </form>
+        <% end %>
       </div>
       <div class="col-md-7 col-lg-6">
         <h4 class="mb-3">お届け先情報</h4>
