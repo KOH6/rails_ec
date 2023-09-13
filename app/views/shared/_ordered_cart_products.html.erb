@@ -20,19 +20,19 @@
         </tr>
       <% end %>
       <% if promotion_code %>
-        <tr class="text-success">
-          <th scope="row">プロモーションコード</th>
-          <td>コード：<%= promotion_code.code %></td>
-          <td class="text-end">-<%= convert_to_jpy(promotion_code.discount) %></td>
-          <td class="text-end">1</td>
-          <td class="text-end">-<%= convert_to_jpy(promotion_code.discount) %></td>
+        <tr>
+          <th scope="row" class="text-success">プロモーションコード</th>
+          <td class="text-success">コード：<%= promotion_code.code %></td>
+          <td class="text-end text-success">-<%= convert_to_jpy(promotion_code.discount) %></td>
+          <td class="text-end text-success">1</td>
+          <td class="text-end text-success">-<%= convert_to_jpy(promotion_code.discount) %></td>
         </tr>
       <% end %>
       <tr>
         <th></th>
         <td></td>
         <td></td>
-        <td><strong>合計金額</strong></td>
+        <td class="text-end"><strong>合計金額</strong></td>
         <td class="text-end"><%= convert_to_jpy(total) %></td>
       </tr>
     </tbody>
