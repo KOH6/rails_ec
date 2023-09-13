@@ -9,6 +9,5 @@ class CreatePromotionCodes < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :promotion_codes, :code, unique: true
   end
 end
