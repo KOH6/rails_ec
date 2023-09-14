@@ -17,7 +17,7 @@ class Cart < ApplicationRecord
   def decrease_product_stock
     cart_products.each do |cart_product|
       quantity = cart_product.quantity
-      Product.update(cart_product.product.id, stock: cart_product.product.stock - quantity)
+      cart_product.product.update(stock: cart_product.product.stock - quantity)
     end
   end
 

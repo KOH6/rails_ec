@@ -33,6 +33,6 @@ class Order < ApplicationRecord
     promotion_code = cart.promotion_code
     return unless promotion_code && promotion_code.order_id.nil?
 
-    PromotionCode.update(promotion_code.id, order_id: id)
+    promotion_code.update(order_id: id)
   end
 end
