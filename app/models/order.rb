@@ -21,6 +21,18 @@ class Order < ApplicationRecord
 
   before_create do
     cart.decrease_product_stock
-    OrderMailer.complete(order: @order).deliver_later
+  end
+
+  after_create do
+    update_promotion_code
+  end
+
+  private
+
+  def update_promotion_code
+    promotion_code = cart.promotion_code
+    return unless promotion_code && promotion_code.order_id.nil?
+
+    promotion_code.update(order_id: id)
   end
 end

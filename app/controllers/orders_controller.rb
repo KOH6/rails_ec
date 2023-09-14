@@ -2,6 +2,7 @@
 
 class OrdersController < ApplicationController
   before_action :set_cart
+  before_action :set_promotion_code, only: %i[index create]
   before_action :set_cart_products, only: %i[index create]
 
   def index
@@ -14,14 +15,16 @@ class OrdersController < ApplicationController
 
     error_messages = @cart.set_validate_error_messages
     if error_messages.size.positive?
-      flash.now['danger'] = error_messages.join('<br/>')
+      flash.now[:danger] = error_messages.join('<br/>')
       render :index
       return
     end
 
     if @order.save
       session[:cart_id] = nil
-      flash[:success] = '購入ありがとうございます'
+      flash[:success] = '購入ありがとうございます。'
+      # Modelのselfはシリアライズされるためメール送信はコントローラに記載
+      OrderMailer.complete(order: @order).deliver_later
       redirect_to products_path
     else
       render :index
@@ -35,8 +38,12 @@ class OrdersController < ApplicationController
                                      credit_name credit_number credit_expiration credit_cvv])
   end
 
+  def set_promotion_code
+    @promotion_code = @cart.promotion_code
+  end
+
   def set_cart_products
     @cart_products = @cart.cart_products.order(created_at: :desc)
-    @total = @cart_products.inject(0) { |total, cart_product| total + cart_product.subtotal }
+    @total = @cart.calc_total
   end
 end
