@@ -7,6 +7,9 @@
 # 環境変数
 .env
 
+# 本番環境設定用の備忘データ
+/production_prepare
+
 # Ignore bundler config.
 /.bundle
 
